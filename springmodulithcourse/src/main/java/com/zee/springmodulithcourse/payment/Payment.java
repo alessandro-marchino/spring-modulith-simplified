@@ -1,15 +1,13 @@
-package com.zee.springmodulithcourse.order;
+package com.zee.springmodulithcourse.payment;
 
 import java.time.Instant;
 
-import com.zee.springmodulithcourse.order.type.Status;
+import com.zee.springmodulithcourse.payment.type.PaymentStatus;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -20,18 +18,15 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "orders")
-public class Order {
+public class Payment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column(nullable = false, unique = true)
-	private String orderIdentifier;
-	private String customerName;
-	private String customerEmail;
+	private long id;
+	private String orderId;
+	private long amount;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Instant orderDate = Instant.now();
-	private Status status = Status.OPEN;
-
+	private Instant paymentDate = Instant.now();
+	private PaymentStatus status = PaymentStatus.INCOMPLETE;
+	
 }
