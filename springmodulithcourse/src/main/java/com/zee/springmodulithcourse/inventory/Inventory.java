@@ -25,5 +25,5 @@ public class Inventory {
 	private String name;
 	private String description;
 	private long price;
-
+	
 }
