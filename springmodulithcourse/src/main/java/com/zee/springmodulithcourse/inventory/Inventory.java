@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(indexes = @Index(name = "inv_name_idx", columnList = "name"))
-public class Inventory {
+class Inventory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

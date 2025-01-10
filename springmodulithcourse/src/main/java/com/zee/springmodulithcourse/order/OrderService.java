@@ -10,5 +10,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderService {
 
+	@SuppressWarnings("unused")
 	private final InventoryService inventoryService;
 }

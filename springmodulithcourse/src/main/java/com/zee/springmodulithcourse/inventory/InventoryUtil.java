@@ -5,7 +5,7 @@ import com.zee.springmodulithcourse.inventory.exposed.InventoryDto;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class InventoryUtil {
+class InventoryUtil {
 
 	public static InventoryDto mapInventoryDto(Inventory inventory) {
 		return InventoryDto.builder()

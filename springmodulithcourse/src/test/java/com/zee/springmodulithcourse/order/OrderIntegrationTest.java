@@ -2,8 +2,9 @@ package com.zee.springmodulithcourse.order;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.test.ApplicationModuleTest;
+import org.springframework.modulith.test.ApplicationModuleTest.BootstrapMode;
 
-@ApplicationModuleTest
+@ApplicationModuleTest(mode = BootstrapMode.DIRECT_DEPENDENCIES)
 class OrderIntegrationTest {
 
 	@Test

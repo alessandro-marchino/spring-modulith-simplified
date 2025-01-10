@@ -1,10 +1,11 @@
-package com.zee.springmodulithcourse.inventory.exposed;
+package com.zee.springmodulithcourse.inventory;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.zee.springmodulithcourse.inventory.InventoryUtil;
+import com.zee.springmodulithcourse.inventory.exposed.InventoryDto;
+import com.zee.springmodulithcourse.inventory.exposed.InventoryService;
 
 import lombok.RequiredArgsConstructor;
 
