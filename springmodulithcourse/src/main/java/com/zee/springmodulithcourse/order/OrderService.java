@@ -24,10 +24,11 @@ public class OrderService {
 
 	private final InventoryService inventoryService;
 	private final OrderRepository orderRepository;
+	private final OrderInventoryRepository orderInventoryRepository;
 
 	public OrderResponseDto createOrder(OrderDto orderDto) {
 		// Get inventories by name
-		List<String> inventoryNames = orderDto.inventoryRequestDtoList().stream()
+		List<String> inventoryNames = orderDto.inventories().stream()
 				.map(InventoryRequestDto::inventoryName)
 				.toList();
 		List<InventoryDto> inventories = inventoryService.fetchAllInName(inventoryNames);
@@ -36,7 +37,9 @@ public class OrderService {
 		log.info("Order created: {}", order);
 		
 		// build and persist the OrderInventory
-		return null;
+		AtomicLong amount = new AtomicLong();
+		buildAndPersistOrderInventory(order, inventories, orderDto.inventories(), amount);
+		return new OrderResponseDto("Order currently processed", 100);
 	}
 
 	private Order buildAndPersistOrder(OrderDto orderDto) {
@@ -50,7 +53,7 @@ public class OrderService {
 	}
 	
 	private void buildAndPersistOrderInventory(Order order, List<InventoryDto> inventories, List<InventoryRequestDto> inventoryRequestDtoList, AtomicLong amount) {
-		List<InventoryDto> orderInventories = new ArrayList<>(inventories.size());
+		List<OrderInventory> orderInventories = new ArrayList<>(inventories.size());
 		inventories.forEach(inventoryDto -> {
 			OrderInventory orderInventory = new OrderInventory();
 			InventoryRequestDto inventoryRequestDto = getInventoryRequestDtoByName(inventoryDto.name(), inventoryRequestDtoList);
@@ -61,10 +64,9 @@ public class OrderService {
 			orderInventory.setTotalQuantityPrice(totalPrice);
 			amount.addAndGet(totalPrice);
 			
-			orderInventories.add(inventoryDto);
+			orderInventories.add(orderInventory);
 		});
-		
-		
+		orderInventoryRepository.saveAll(orderInventories);
 	}
 	private static InventoryRequestDto getInventoryRequestDtoByName(String inventoryName, List<InventoryRequestDto> inventoryRequestDtoList) {
 		return inventoryRequestDtoList.stream()
