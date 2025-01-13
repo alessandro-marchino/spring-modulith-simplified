@@ -8,11 +8,6 @@ import lombok.experimental.UtilityClass;
 class InventoryUtil {
 
 	public static InventoryDto mapInventoryDto(Inventory inventory) {
-		return InventoryDto.builder()
-			.id(inventory.getId())
-			.name(inventory.getName())
-			.description(inventory.getDescription())
-			.price(inventory.getPrice())
-			.build();
+		return new InventoryDto(inventory.getId(), inventory.getName(), inventory.getDescription(), inventory.getPrice());
 	}
 }
