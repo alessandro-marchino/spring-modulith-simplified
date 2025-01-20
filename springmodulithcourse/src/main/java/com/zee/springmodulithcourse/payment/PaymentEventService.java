@@ -1,8 +1,8 @@
 package com.zee.springmodulithcourse.payment;
 
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 
-import com.zee.springmodulithcourse.order.OrderService;
 import com.zee.springmodulithcourse.order.dto.OrderPaymentDto;
 
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,8 @@ public class PaymentEventService {
 
 	private final PaymentRepository paymentRepository;
 
+	@ApplicationModuleListener
 	void on(OrderPaymentDto orderPaymentDto) {
-		
+		log.info("Order payment received in listener: {}", orderPaymentDto);
 	}
 }

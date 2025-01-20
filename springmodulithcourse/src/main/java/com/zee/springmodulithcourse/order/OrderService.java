@@ -11,6 +11,7 @@ import com.zee.springmodulithcourse.inventory.exposed.InventoryDto;
 import com.zee.springmodulithcourse.inventory.exposed.InventoryService;
 import com.zee.springmodulithcourse.order.dto.InventoryRequestDto;
 import com.zee.springmodulithcourse.order.dto.OrderDto;
+import com.zee.springmodulithcourse.order.dto.OrderPaymentDto;
 import com.zee.springmodulithcourse.order.dto.OrderResponseDto;
 import com.zee.springmodulithcourse.order.type.Status;
 
@@ -25,6 +26,8 @@ public class OrderService {
 	private final InventoryService inventoryService;
 	private final OrderRepository orderRepository;
 	private final OrderInventoryRepository orderInventoryRepository;
+	
+	private final OrderEventService orderEventService;
 
 	public OrderResponseDto createOrder(OrderDto orderDto) {
 		// Get inventories by name
@@ -39,6 +42,9 @@ public class OrderService {
 		// build and persist the OrderInventory
 		AtomicLong amount = new AtomicLong();
 		buildAndPersistOrderInventory(order, inventories, orderDto.inventories(), amount);
+		
+		OrderPaymentDto orderPaymentDto = new OrderPaymentDto(order.getOrderIdentifier(), amount.get());
+		orderEventService.completeOrder(orderPaymentDto);
 		return new OrderResponseDto("Order currently processed", 100);
 	}
 
