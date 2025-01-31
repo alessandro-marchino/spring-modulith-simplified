@@ -3,7 +3,9 @@ package com.zee.springmodulithcourse.eventaction.action;
 import java.util.Arrays;
 
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
+@Converter(autoApply = true)
 public class ActionTypeConverter implements AttributeConverter<Action, String> {
 
 	@Override
