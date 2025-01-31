@@ -1,6 +1,8 @@
-package com.zee.springmodulithcourse.eventaction.action;
+package com.zee.springmodulithcourse.eventaction.typeconverter;
 
 import java.util.Arrays;
+
+import com.zee.springmodulithcourse.eventaction.action.Action;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

@@ -6,3 +6,7 @@ spring:
   sql:
     init:
       mode: always
+
+delete:
+  event:
+    duration: 5000
