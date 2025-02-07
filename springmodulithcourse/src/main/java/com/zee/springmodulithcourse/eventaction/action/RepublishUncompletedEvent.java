@@ -1,11 +1,14 @@
 package com.zee.springmodulithcourse.eventaction.action;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.core.env.Environment;
 import org.springframework.modulith.events.CompletedEventPublications;
 import org.springframework.modulith.events.IncompleteEventPublications;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.zee.springmodulithcourse.eventaction.EventAction;
@@ -35,6 +38,18 @@ public class RepublishUncompletedEvent {
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException(e);
 			}
+		}
+	}
+
+	public void republish(List<Action> action) {
+		action.forEach(this::republish);
+	}
+
+//	@Scheduled(fixedDelay = 10L, timeUnit = TimeUnit.SECONDS)
+	public void republish() {
+		log.info("Republishing uncompleted events");
+		for(Action action : Action.values()) {
+			republish(action);
 		}
 	}
 }

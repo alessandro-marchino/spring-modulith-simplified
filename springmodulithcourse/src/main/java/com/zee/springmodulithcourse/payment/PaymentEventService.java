@@ -17,7 +17,7 @@ public class PaymentEventService {
 
 	@ApplicationModuleListener
 	void on(OrderPaymentDto orderPaymentDto) {
-		throw new RuntimeException("this failed");
-//		log.info("Order payment received in listener: {}", orderPaymentDto);
+//		throw new RuntimeException("this failed");
+		log.info("Order payment received in listener: {}", orderPaymentDto);
 	}
 }
