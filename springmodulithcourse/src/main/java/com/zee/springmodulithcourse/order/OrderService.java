@@ -2,6 +2,7 @@ package com.zee.springmodulithcourse.order;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.zee.springmodulithcourse.inventory.exposed.InventoryDto;
 import com.zee.springmodulithcourse.inventory.exposed.InventoryService;
+import com.zee.springmodulithcourse.order.dto.CompleteOrderDto;
+import com.zee.springmodulithcourse.order.dto.CompleteOrderResponseDto;
 import com.zee.springmodulithcourse.order.dto.EmailDto;
 import com.zee.springmodulithcourse.order.dto.InventoryRequestDto;
 import com.zee.springmodulithcourse.order.dto.OrderDto;
@@ -51,6 +54,18 @@ public class OrderService {
 		return new OrderResponseDto("Order currently processed", 100);
 	}
 
+	public CompleteOrderResponseDto completePayment(CompleteOrderDto completeOrderDto) {
+		Optional<Order> optionalOrder = orderRepository.getOrderByOrderIdentifier(completeOrderDto.orderIdentifier());
+		if(optionalOrder.isEmpty()) {
+			throw new RuntimeException("Order not found");
+		}
+		Order order = optionalOrder.get();
+		long amount = orderInventoryRepository.orderIdAmount(order.getId());
+		EmailDto emailDto = new EmailDto(order.getCustomerEmail(), order.getCustomerName(), order.getOrderIdentifier(), amount, true);
+		orderEventService.completePayment(completeOrderDto, emailDto);
+		return new CompleteOrderResponseDto(true);
+	}
+
 	private Order buildAndPersistOrder(OrderDto orderDto) {
 		Order order = new Order();
 		order.setOrderIdentifier(UUID.randomUUID().toString());
@@ -83,4 +98,5 @@ public class OrderService {
 				.findFirst()
 				.orElse(null);
 	}
+
 }

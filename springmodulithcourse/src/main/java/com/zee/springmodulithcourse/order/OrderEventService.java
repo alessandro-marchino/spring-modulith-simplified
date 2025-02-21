@@ -3,6 +3,7 @@ package com.zee.springmodulithcourse.order;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import com.zee.springmodulithcourse.order.dto.CompleteOrderDto;
 import com.zee.springmodulithcourse.order.dto.EmailDto;
 import com.zee.springmodulithcourse.order.dto.OrderPaymentDto;
 
@@ -23,6 +24,15 @@ public class OrderEventService {
 		eventPublisher.publishEvent(orderPaymentDto);
 		
 		log.info("Sending email for order {}", emailDto);
+		eventPublisher.publishEvent(emailDto);
+	}
+
+	@Transactional
+	public void completePayment(CompleteOrderDto completeOrderDto, EmailDto emailDto) {
+		log.info("Attempting to complete payment {}", completeOrderDto);
+		eventPublisher.publishEvent(completeOrderDto);
+		
+		log.info("Completed payment email {}", emailDto);
 		eventPublisher.publishEvent(emailDto);
 	}
 }

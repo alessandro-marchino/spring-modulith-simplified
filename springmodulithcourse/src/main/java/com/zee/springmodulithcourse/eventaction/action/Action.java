@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 public enum Action {
 
+	COMPLETE_PAYMENT("C"),
 	PAYMENT("P"),
 	EMAIL("E");
 
