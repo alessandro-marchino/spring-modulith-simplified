@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.zee.springmodulithcourse.inventory.exposed.InventoryDto;
 import com.zee.springmodulithcourse.inventory.exposed.InventoryService;
+import com.zee.springmodulithcourse.order.dto.EmailDto;
 import com.zee.springmodulithcourse.order.dto.InventoryRequestDto;
 import com.zee.springmodulithcourse.order.dto.OrderDto;
 import com.zee.springmodulithcourse.order.dto.OrderPaymentDto;
@@ -44,7 +45,9 @@ public class OrderService {
 		buildAndPersistOrderInventory(order, inventories, orderDto.inventories(), amount);
 		
 		OrderPaymentDto orderPaymentDto = new OrderPaymentDto(order.getOrderIdentifier(), amount.get());
-		orderEventService.completeOrder(orderPaymentDto);
+		EmailDto emailDto = new EmailDto(orderDto.customerEmail(), orderDto.customerName(), order.getOrderIdentifier(), orderPaymentDto.amount(), false);
+		
+		orderEventService.completeOrder(orderPaymentDto, emailDto);
 		return new OrderResponseDto("Order currently processed", 100);
 	}
 

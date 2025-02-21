@@ -17,7 +17,11 @@ public class PaymentEventService {
 
 	@ApplicationModuleListener
 	void on(OrderPaymentDto orderPaymentDto) {
-//		throw new RuntimeException("this failed");
 		log.info("Order payment received in listener: {}", orderPaymentDto);
+		
+		Payment payment = new Payment();
+		payment.setOrderId(orderPaymentDto.orderId());
+		payment.setAmount(orderPaymentDto.amount());
+		paymentRepository.save(payment);
 	}
 }
