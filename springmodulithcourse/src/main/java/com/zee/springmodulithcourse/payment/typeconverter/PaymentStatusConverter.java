@@ -2,6 +2,7 @@ package com.zee.springmodulithcourse.payment.typeconverter;
 
 import java.util.Arrays;
 
+import com.zee.springmodulithcourse.exception.ModulithException;
 import com.zee.springmodulithcourse.payment.type.PaymentStatus;
 
 import jakarta.persistence.AttributeConverter;
@@ -13,7 +14,7 @@ public class PaymentStatusConverter implements AttributeConverter<PaymentStatus,
 	@Override
 	public String convertToDatabaseColumn(PaymentStatus attribute) {
 		if(attribute == null) {
-			throw new IllegalArgumentException("Status cannot be null");
+			throw new ModulithException("Status cannot be null");
 		}
 		return attribute.getCode();
 	}
@@ -21,12 +22,12 @@ public class PaymentStatusConverter implements AttributeConverter<PaymentStatus,
 	@Override
 	public PaymentStatus convertToEntityAttribute(String dbData) {
 		if(dbData == null) {
-			throw new IllegalArgumentException("Status cannot be null");
+			throw new ModulithException("Status cannot be null");
 		}
 		return Arrays.stream(PaymentStatus.values())
 				.filter(status -> status.getCode().equalsIgnoreCase(dbData))
 				.findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("No status corresponding to value " + dbData));
+				.orElseThrow(() -> new ModulithException("No status corresponding to value " + dbData));
 	}
 
 }

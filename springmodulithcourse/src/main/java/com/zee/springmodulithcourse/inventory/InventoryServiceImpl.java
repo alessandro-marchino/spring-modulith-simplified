@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.zee.springmodulithcourse.exception.ModulithException;
 import com.zee.springmodulithcourse.inventory.exposed.InventoryDto;
 import com.zee.springmodulithcourse.inventory.exposed.InventoryService;
 
@@ -18,7 +19,7 @@ class InventoryServiceImpl implements InventoryService {
 	public InventoryDto fetchInventoryByName(String name) {
 		return inventoryRepository.getInventoryByName(name)
 				.map(InventoryUtil::mapInventoryDto)
-				.orElseThrow(() -> new RuntimeException("Could not find inventory by name: " + name));
+				.orElseThrow(() -> new ModulithException("Could not find inventory by name: " + name));
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
+import com.zee.springmodulithcourse.exception.ModulithException;
 import com.zee.springmodulithcourse.inventory.exposed.InventoryDto;
 import com.zee.springmodulithcourse.inventory.exposed.InventoryService;
 import com.zee.springmodulithcourse.order.dto.CompleteOrderDto;
@@ -57,7 +58,7 @@ public class OrderService {
 	public CompleteOrderResponseDto completePayment(CompleteOrderDto completeOrderDto) {
 		Optional<Order> optionalOrder = orderRepository.getOrderByOrderIdentifier(completeOrderDto.orderIdentifier());
 		if(optionalOrder.isEmpty()) {
-			throw new RuntimeException("Order not found");
+			throw new ModulithException("Order not found");
 		}
 		Order order = optionalOrder.get();
 		long amount = orderInventoryRepository.orderIdAmount(order.getId());
