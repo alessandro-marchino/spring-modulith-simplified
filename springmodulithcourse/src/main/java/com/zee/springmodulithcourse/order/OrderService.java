@@ -58,7 +58,7 @@ public class OrderService {
 	public CompleteOrderResponseDto completePayment(CompleteOrderDto completeOrderDto) {
 		Optional<Order> optionalOrder = orderRepository.getOrderByOrderIdentifier(completeOrderDto.orderIdentifier());
 		if(optionalOrder.isEmpty()) {
-			throw new ModulithException("Order not found");
+			throw new ModulithException("Order with id: " + completeOrderDto.orderIdentifier() + " not found");
 		}
 		Order order = optionalOrder.get();
 		long amount = orderInventoryRepository.orderIdAmount(order.getId());

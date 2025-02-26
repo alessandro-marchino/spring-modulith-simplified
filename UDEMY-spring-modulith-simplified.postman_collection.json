@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "08c90860-08bf-4c52-9251-6f712674ef69",
+		"name": "UDEMY/spring-modulith-simplified",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29911340"
+	},
+	"item": [
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "/order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerName\": \"Zee Ziko 4\",\r\n    \"customerEmail\": \"test@test.com\",\r\n    \"inventories\": [\r\n        {\r\n            \"inventoryName\": \"pencil\",\r\n            \"quantity\": 6\r\n        },\r\n        {\r\n            \"inventoryName\": \"drawing pad\",\r\n            \"quantity\": 6\r\n        },\r\n        {\r\n            \"inventoryName\": \"notebook\",\r\n            \"quantity\": 4\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/order",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "CORRECT",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerName\": \"Zee Ziko 4\",\r\n    \"customerEmail\": \"test@test.com\",\r\n    \"inventories\": [\r\n        {\r\n            \"inventoryName\": \"pencil\",\r\n            \"quantity\": 6\r\n        },\r\n        {\r\n            \"inventoryName\": \"drawing pad\",\r\n            \"quantity\": 6\r\n        },\r\n        {\r\n            \"inventoryName\": \"notebook\",\r\n            \"quantity\": 4\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/order",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"order"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerName\": \"\",\r\n    \"customerEmail\": \"\",\r\n    \"inventories\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/order",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"order"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "/order/complete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderIdentifier\": \"da3d6e1a-4e70-4a86-a344-6eb3b40d9dcb\",\r\n    \"paymentComplete\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/order/complete",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"order",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "event-action",
+			"item": [
+				{
+					"name": "/event-action",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/event-action?action=COMPLETE_PAYMENT",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"event-action"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "COMPLETE_PAYMENT"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

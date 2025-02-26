@@ -9,10 +9,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	protected ResponseEntity<Map<String, List<String>>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
@@ -25,6 +24,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ModulithException.class)
 	public ResponseEntity<Response> handleModulithException(ModulithException ex) {
 		return new ResponseEntity<>(new Response(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<Response> handleRuntimeException(RuntimeException ex) {
+		return new ResponseEntity<>(new Response(ex.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	private Map<String, List<String>> toErrorMap(List<String> fieldErrors) {

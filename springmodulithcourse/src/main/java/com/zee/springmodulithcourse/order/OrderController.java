@@ -11,6 +11,7 @@ import com.zee.springmodulithcourse.order.dto.CompleteOrderResponseDto;
 import com.zee.springmodulithcourse.order.dto.OrderDto;
 import com.zee.springmodulithcourse.order.dto.OrderResponseDto;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -21,12 +22,12 @@ public class OrderController {
 	private final OrderService orderService;
 
 	@PostMapping
-	public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderDto orderDto) {
+	public ResponseEntity<OrderResponseDto> createOrder(@RequestBody @Valid OrderDto orderDto) {
 		return ResponseEntity.ok(orderService.createOrder(orderDto));
 	}
 
 	@PostMapping("/complete")
-	public ResponseEntity<CompleteOrderResponseDto> createOrder(@RequestBody CompleteOrderDto completeOrderDto) {
+	public ResponseEntity<CompleteOrderResponseDto> createOrder(@RequestBody @Valid CompleteOrderDto completeOrderDto) {
 		return ResponseEntity.ok(orderService.completePayment(completeOrderDto));
 	}
 }
