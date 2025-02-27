@@ -3,6 +3,8 @@ package com.zee.springmodulithcourse.documentation;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.docs.Documenter;
+import org.springframework.modulith.docs.Documenter.DiagramOptions;
+import org.springframework.modulith.docs.Documenter.DiagramOptions.DiagramStyle;
 
 import com.zee.springmodulithcourse.SpringmodulithcourseApplication;
 
@@ -11,9 +13,10 @@ public class DocumentationTest {
 
 	@Test
 	void writeDocumentationSnippets() {
+		DiagramOptions diagramOptions = Documenter.DiagramOptions.defaults().withStyle(DiagramStyle.UML);
 		new Documenter(modules)
-			.writeModulesAsPlantUml()
-			.writeIndividualModulesAsPlantUml()
+			.writeModulesAsPlantUml(diagramOptions)
+			.writeIndividualModulesAsPlantUml(diagramOptions)
 			.writeModuleCanvases()
 			.writeAggregatingDocument();
 	}
