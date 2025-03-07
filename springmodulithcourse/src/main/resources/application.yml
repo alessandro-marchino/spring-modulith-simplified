@@ -5,3 +5,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/spring-modulith
     username: modulitha
     password: modulitha
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
