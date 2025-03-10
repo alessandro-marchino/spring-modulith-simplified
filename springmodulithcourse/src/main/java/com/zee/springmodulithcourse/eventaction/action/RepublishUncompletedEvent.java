@@ -13,6 +13,7 @@ import com.zee.springmodulithcourse.eventaction.EventAction;
 import com.zee.springmodulithcourse.eventaction.EventActionRepository;
 import com.zee.springmodulithcourse.exception.ModulithException;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +26,7 @@ public class RepublishUncompletedEvent {
 	private final CompletedEventPublications completedEventPublications;
 	private final Environment env;
 
+	@Transactional
 	public void republish(Action action) {
 		Optional<EventAction> optionalEventAction = eventActionRepository.getByAction(action);
 		if(optionalEventAction.isPresent()) {
@@ -40,10 +42,12 @@ public class RepublishUncompletedEvent {
 		}
 	}
 
+	@Transactional
 	public void republish(List<Action> action) {
 		action.forEach(this::republish);
 	}
 
+	@Transactional
 //	@Scheduled(fixedDelay = 10L, timeUnit = TimeUnit.SECONDS)
 	public void republish() {
 		log.info("Republishing uncompleted events");
